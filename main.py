@@ -1,6 +1,11 @@
 import discord
 from discord.ext import commands
 from youtube_dl import YoutubeDL
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 YDL_OPTIONS = {'format': 'worstaudio/best', 'noplaylist': 'False', 'simulate': 'True',
                'preferredquality': '192', 'preferredcodec': 'mp3', 'key': 'FFmpegExtractAudio'}
@@ -50,5 +55,8 @@ async def stop(ctx):
 
     voice_channel.stop()
 
+@client.command(name='test')
+async def test(ctx):
+    pass
 
-client.run('MTA1NjU1ODA4Nzc2NDQ1MTMzOQ.GmpjbV.7JWwkPMT99bHuNBvyATpOuqXtdj6OchCrZMqxY')
+client.run(os.getenv('TOKEN'))
