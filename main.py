@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from youtube_dl import YoutubeDL
 import os
+import time
 
 from dotenv import load_dotenv
 
@@ -58,5 +59,20 @@ async def stop(ctx):
 @client.command(name='test')
 async def test(ctx):
     pass
+
+@client.command()
+async def send(ctx, member:discord.Member, n:int, text:str = None):
+    if text is None:
+        channel_id = ctx.channel.id
+        channel = client.get_channel(channel_id)
+        for i in range(n, 0, -1):
+            await channel.send(f'<@{member.id}>')
+            time.sleep(1)
+    else:
+        channel_id = ctx.channel.id
+        channel = client.get_channel(channel_id)
+        for i in range(n, 0, -1):
+            await channel.send(f'<@{member.id}> {text}')
+            time.sleep(1)
 
 client.run(os.getenv('TOKEN'))
